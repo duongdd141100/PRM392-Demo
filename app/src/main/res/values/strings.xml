@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="firstName">First Name:</string>
+    <string-array name="campus">
+        <item>Ha Noi</item>
+        <item>Ho Chi Minh</item>
+    </string-array>
+</resources>
