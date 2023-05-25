@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditProfileActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:id="@+id/firstName"
+        android:text="First Name: "
+        android:layout_below="@id/imageView"
+        style="@style/textView"/>
+    <EditText
+        android:id="@+id/firstNameInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageView"
+        android:layout_toRightOf="@id/firstName" />
+
+    <TextView
+        android:id="@+id/lastName"
+        android:text="Last Name: "
+        android:layout_below="@id/firstName"
+        style="@style/textView"/>
+    <EditText
+        android:id="@+id/lastNameInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/firstName"
+        android:layout_toRightOf="@id/lastName" />
+
+    <TextView
+        android:id="@+id/phoneNumber"
+        android:text="Phone Number: "
+        android:layout_below="@id/lastName"
+        style="@style/textView"/>
+    <EditText
+        android:id="@+id/phoneNumberInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lastName"
+        android:layout_toRightOf="@id/lastName" />
+
+    <TextView
+        android:id="@+id/address"
+        android:text="Address: "
+        android:layout_below="@id/phoneNumber"
+        style="@style/textView"/>
+    <EditText
+        android:id="@+id/addressInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/phoneNumber"
+        android:layout_toRightOf="@id/address" />
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Submit" />
+</RelativeLayout>

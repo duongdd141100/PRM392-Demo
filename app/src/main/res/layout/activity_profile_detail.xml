@@ -10,18 +10,23 @@
 
     <ImageView
         android:id="@+id/avatar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        tools:srcCompat="@tools:sample/avatars"
         android:paddingRight="10dp"
-        android:paddingBottom="10dp"/>
+        android:paddingBottom="10dp"
+        tools:srcCompat="@tools:sample/avatars[3]" />
 
     <TextView
         android:id="@+id/firstName"
         android:text="@string/firstName"
         android:layout_toRightOf="@+id/avatar"
+        style="@style/textView"/>
+
+    <TextView
+        android:id="@+id/firstNameVal"
+        android:layout_toRightOf="@+id/firstName"
         style="@style/textView"/>
 
     <TextView
@@ -32,10 +37,34 @@
         style="@style/textView"/>
 
     <TextView
+        android:id="@+id/lastNameVal"
+        android:layout_below="@+id/firstName"
+        android:layout_toRightOf="@+id/lastName"
+        style="@style/textView"/>
+    <TextView
+        android:id="@+id/username"
+        android:layout_below="@+id/lastName"
+        android:text="Username: "
+        android:layout_toRightOf="@+id/avatar"
+        style="@style/textView"/>
+
+    <TextView
+        android:id="@+id/usernameVal"
+        android:layout_below="@+id/lastName"
+        android:layout_toRightOf="@+id/username"
+        style="@style/textView"/>
+
+    <TextView
         android:id="@+id/phoneNumber"
         android:layout_below="@+id/avatar"
         android:text="Phone Number: "
         android:layout_alignParentLeft="true"
+        style="@style/textView"/>
+
+    <TextView
+        android:id="@+id/phoneNumberVal"
+        android:layout_below="@+id/avatar"
+        android:layout_toRightOf="@+id/phoneNumber"
         style="@style/textView"/>
 
     <TextView
@@ -46,8 +75,15 @@
         android:text="Address: "
         android:layout_alignParentLeft="true"
         style="@style/textView" />
+    <TextView
+        android:id="@+id/addressVal"
+        android:layout_below="@+id/phoneNumber"
+        android:layout_toRightOf="@+id/address"
+        style="@style/textView"/>
+
 
     <Button
+        android:id="@+id/editButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

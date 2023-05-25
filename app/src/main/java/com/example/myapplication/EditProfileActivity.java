@@ -6,43 +6,41 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.myapplication.common.IntentKeys;
 import com.example.myapplication.entity.Person;
 
-public class ProfileDetailActivity extends AppCompatActivity {
+public class EditProfileActivity extends AppCompatActivity {
 
     private Person person;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_detail);
+        setContentView(R.layout.activity_edit_profile);
         Intent intent = getIntent();
-//        Person person = null;
+        EditText firstName = findViewById(R.id.firstNameInput);
+        EditText lastName = findViewById(R.id.lastNameInput);
+        EditText phoneNumber = findViewById(R.id.phoneNumberInput);
+        EditText address = findViewById(R.id.addressInput);
         if (intent != null) {
             person = (Person) intent.getSerializableExtra(IntentKeys.person);
-            TextView username = findViewById(R.id.usernameVal);
-            username.setText(person.getUsername());
-
-            TextView firstName = findViewById(R.id.firstNameVal);
             firstName.setText(person.getFirstName());
-
-            TextView lastName = findViewById(R.id.lastNameVal);
             lastName.setText(person.getLastName());
-
-            TextView address = findViewById(R.id.addressVal);
-            address.setText(person.getAddress());
-
-            TextView phoneNumber = findViewById(R.id.phoneNumberVal);
             phoneNumber.setText(person.getPhoneNumber());
+            address.setText(person.getAddress());
         }
-        Button editButton = findViewById(R.id.editButton);
-        editButton.setOnClickListener(new View.OnClickListener() {
+        Button submit = findViewById(R.id.submit);
+        submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(ProfileDetailActivity.this, EditProfileActivity.class);
+                person.setFirstName(firstName.getText().toString());
+                person.setLastName(lastName.getText().toString());
+                person.setAddress(address.getText().toString());
+                person.setPhoneNumber(phoneNumber.getText().toString());
+                Intent intent1 = new Intent(EditProfileActivity.this, ProfileDetailActivity.class);
                 intent1.putExtra(IntentKeys.person, person);
                 startActivity(intent1);
             }
