@@ -40,9 +40,11 @@ public class EditProfileActivity extends AppCompatActivity {
                 person.setLastName(lastName.getText().toString());
                 person.setAddress(address.getText().toString());
                 person.setPhoneNumber(phoneNumber.getText().toString());
-                Intent intent1 = new Intent(EditProfileActivity.this, ProfileDetailActivity.class);
+                Intent intent1 = new Intent();
                 intent1.putExtra(IntentKeys.person, person);
-                startActivity(intent1);
+                setResult(1, intent1);
+//                startActivity(intent1);
+                finish();
             }
         });
     }
