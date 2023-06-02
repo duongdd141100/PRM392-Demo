@@ -10,7 +10,8 @@
         android:id="@+id/imageView"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitStart"/>
     <TextView
         android:id="@+id/firstName"
         android:text="First Name: "

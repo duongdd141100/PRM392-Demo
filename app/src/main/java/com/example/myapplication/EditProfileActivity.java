@@ -42,7 +42,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 person.setPhoneNumber(phoneNumber.getText().toString());
                 Intent intent1 = new Intent();
                 intent1.putExtra(IntentKeys.person, person);
-                setResult(1, intent1);
+//                setResult(1, intent1);
 //                startActivity(intent1);
                 finish();
             }
