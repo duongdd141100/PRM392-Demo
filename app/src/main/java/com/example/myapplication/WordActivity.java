@@ -14,6 +14,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -191,6 +192,10 @@ public class WordActivity extends AppCompatActivity {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentTitle("Demo Noti")
                 .setContentText("Hello! this is demo message");
+        Intent intent = new Intent(this, HandlingNotificationActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                this, 4, intent, PendingIntent.FLAG_IMMUTABLE);
+        builder.setContentIntent(pendingIntent);
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel(channelId, "demo chanel", NotificationManager.IMPORTANCE_DEFAULT);
