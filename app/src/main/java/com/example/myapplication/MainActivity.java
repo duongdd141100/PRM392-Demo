@@ -2,7 +2,9 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,6 +36,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private List<Person> people = new ArrayList<>();
 
+    private SharedPreferences sharedPreferences;
+
+    private String SHARE_PREFS_NAME = "DemoPrefs";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +52,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 String username = ( (EditText) findViewById(R.id.username)).getText().toString();
                 String password = ( (EditText) findViewById(R.id.password)).getText().toString();
                 people.stream().filter(p -> p.getUsername().equals(username) && p.getPassword().equals(password)).collect(Collectors.toList());
-                if (people.stream().filter(p -> p.getUsername().equals(username) && p.getPassword().equals(password)).collect(Collectors.toList()).size() > 0) {
+                String uid = sharedPreferences.getString(IntentKeys.username, "");
+                String pass = sharedPreferences.getString(IntentKeys.password, "");
+                if (uid.equals(username) && pass.equals(password)) {
                     Person person = people.stream().filter(p -> p.getUsername().equals(username)).findFirst().get();
                     Intent intent = new Intent(MainActivity.this, ProfileDetailActivity.class);
                     intent.putExtra(IntentKeys.person, person);
@@ -66,6 +74,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         roles = findViewById(R.id.roles);
         roles.setOnCheckedChangeListener(this);
+        sharedPreferences = getSharedPreferences(SHARE_PREFS_NAME, Context.MODE_PRIVATE);
+        String uid = sharedPreferences.getString(IntentKeys.username, "");
+        if (uid.length() == 0) {
+            initPrefs();
+        }
     }
 
     @Override
@@ -116,5 +129,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    private void initPrefs() {
+        sharedPreferences = getSharedPreferences(SHARE_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(IntentKeys.username, "duongdd");
+        editor.putString(IntentKeys.password, "1414");
+        editor.commit();
     }
 }

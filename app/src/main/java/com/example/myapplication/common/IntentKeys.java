@@ -4,4 +4,5 @@ public class IntentKeys {
     public static final String username = "username";
 
     public static final String person = "person";
+    public static String password = "password";
 }
