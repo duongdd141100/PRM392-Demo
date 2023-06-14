@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.common.IntentKeys;
@@ -37,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private List<Person> people = new ArrayList<>();
 
     private SharedPreferences sharedPreferences;
+
+    private TextView register;
 
     private String SHARE_PREFS_NAME = "DemoPrefs";
 
@@ -79,6 +82,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         if (uid.length() == 0) {
             initPrefs();
         }
+
+        register = findViewById(R.id.register);
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

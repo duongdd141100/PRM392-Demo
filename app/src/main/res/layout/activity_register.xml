@@ -15,7 +15,7 @@
         android:text="Fullname" />
 
     <EditText
-        android:id="@+id/editTextText2"
+        android:id="@+id/fullname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -28,7 +28,7 @@
         android:text="Username" />
 
     <EditText
-        android:id="@+id/editTextText3"
+        android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -41,14 +41,14 @@
         android:text="Password" />
 
     <EditText
-        android:id="@+id/editTextTextPassword2"
+        android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/campusSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:spinnerMode="dropdown"
@@ -61,6 +61,7 @@
         android:text="Role" />
 
     <RadioGroup
+        android:id="@+id/role"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
@@ -84,7 +85,7 @@
     </RadioGroup>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Register" />

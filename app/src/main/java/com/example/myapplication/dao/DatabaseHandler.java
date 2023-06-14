@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,7 +25,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //    private final static String PASSWORD = "1414";
 
     private final static String CREATE_USER_TABLE_QUERY = "CREATE TABLE " + USER_TABLE_NAME +
-            " (username TEXT NOT NULL PRIMARY KEY," +
+            " (full_name TEXT NOT NULL," +
+            " username TEXT NOT NULL PRIMARY KEY," +
             " password TEXT NOT NULL," +
             " role TEXT NOT NULL," +
             " campus TEXT NOT NULL)";
@@ -47,22 +49,45 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public void findUserByUsername(String username) {
-        String sql = "SELECT * FROM user WHERE username = ?";
+    public User findUserByUsername(String username) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-        String[] params = new String[] {username};
-        Cursor cursor = sqLiteDatabase.rawQuery(sql, params);
-        int index = cursor.getColumnIndex("username");
-        String usernamee = cursor.getColumnName(index);
+        try {
+            String sql = "SELECT * FROM user WHERE username = ?";
+            String[] params = new String[] {username};
+            Cursor cursor = sqLiteDatabase.rawQuery(sql, params);
+            if (cursor.moveToNext()) {
+                int campusIndex = cursor.getColumnIndex("campus");
+                int roleIndex = cursor.getColumnIndex("role");
+
+                User user = new User();
+                user.setUsername(username);
+                user.setCampus(cursor.getColumnName(campusIndex));
+                user.setRole(cursor.getColumnName(roleIndex));
+                return user;
+            }
+
+        } catch (Exception e) {
+
+        } finally {
+            if (sqLiteDatabase != null && sqLiteDatabase.isOpen()) {
+                sqLiteDatabase.close();
+            }
+        }
+        return null;
     }
 
-    public void insert(String username, String password, String role, String campus) {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("username", username);
-        contentValues.put("password", password);
-        contentValues.put("role", role);
-        contentValues.put("campus", campus);
-        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-        sqLiteDatabase.insert(USER_TABLE_NAME, null, contentValues);
+    public void insert(String fullName, String username, String password, String role, String campus) {
+        try {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("full_name", fullName);
+            contentValues.put("username", username);
+            contentValues.put("password", password);
+            contentValues.put("role", role);
+            contentValues.put("campus", campus);
+            SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+            sqLiteDatabase.insert(USER_TABLE_NAME, null, contentValues);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }
