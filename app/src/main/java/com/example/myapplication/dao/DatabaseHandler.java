@@ -58,11 +58,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             if (cursor.moveToNext()) {
                 int campusIndex = cursor.getColumnIndex("campus");
                 int roleIndex = cursor.getColumnIndex("role");
+                int passIndex = cursor.getColumnIndex("password");
+                int fullNameIndex = cursor.getColumnIndex("full_name");
 
                 User user = new User();
                 user.setUsername(username);
-                user.setCampus(cursor.getColumnName(campusIndex));
-                user.setRole(cursor.getColumnName(roleIndex));
+                user.setFullName(cursor.getString(fullNameIndex));
+                user.setPassword(cursor.getString(passIndex));
+                user.setCampus(cursor.getString(campusIndex));
+                user.setRole(cursor.getString(roleIndex));
                 return user;
             }
 

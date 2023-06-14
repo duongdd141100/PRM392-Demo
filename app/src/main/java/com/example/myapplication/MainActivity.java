@@ -18,7 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.common.IntentKeys;
+import com.example.myapplication.dao.DatabaseHandler;
 import com.example.myapplication.entity.Person;
+import com.example.myapplication.entity.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private TextView register;
 
+    private DatabaseHandler databaseHandler = new DatabaseHandler(this);
+
     private String SHARE_PREFS_NAME = "DemoPrefs";
 
     @Override
@@ -53,14 +57,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onClick(View v) {
                 String username = ( (EditText) findViewById(R.id.username)).getText().toString();
+                User user = databaseHandler.findUserByUsername(username);
                 String password = ( (EditText) findViewById(R.id.password)).getText().toString();
-                people.stream().filter(p -> p.getUsername().equals(username) && p.getPassword().equals(password)).collect(Collectors.toList());
                 String uid = sharedPreferences.getString(IntentKeys.username, "");
                 String pass = sharedPreferences.getString(IntentKeys.password, "");
-                if (uid.equals(username) && pass.equals(password)) {
+                if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
                     Person person = people.stream().filter(p -> p.getUsername().equals(username)).findFirst().get();
                     Intent intent = new Intent(MainActivity.this, ProfileDetailActivity.class);
-                    intent.putExtra(IntentKeys.person, person);
+                    intent.putExtra(IntentKeys.user, user);
                     startActivity(intent);
                 } else {
                     Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();

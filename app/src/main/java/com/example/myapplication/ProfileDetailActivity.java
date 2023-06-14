@@ -16,11 +16,12 @@ import android.widget.TextView;
 
 import com.example.myapplication.common.IntentKeys;
 import com.example.myapplication.entity.Person;
+import com.example.myapplication.entity.User;
 import com.squareup.picasso.Picasso;
 
 public class ProfileDetailActivity extends AppCompatActivity {
 
-    private Person person;
+    private User user;
 
     private ImageView avatar;
 
@@ -48,7 +49,7 @@ public class ProfileDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent1 = new Intent(ProfileDetailActivity.this, EditProfileActivity.class);
-                intent1.putExtra(IntentKeys.person, person);
+                intent1.putExtra(IntentKeys.user, user);
 //                startActivityForResult(intent1, 1);
 //                startActivity(intent1);
                 startActivity.launch(intent1);
@@ -68,21 +69,21 @@ public class ProfileDetailActivity extends AppCompatActivity {
 
     private void resetInfo(Intent intent) {
         if (intent != null) {
-            person = (Person) intent.getSerializableExtra(IntentKeys.person);
+            user = (User) intent.getSerializableExtra(IntentKeys.user);
             TextView username = findViewById(R.id.usernameVal);
-            username.setText(person.getUsername());
+            username.setText(user.getUsername());
 
             TextView firstName = findViewById(R.id.firstNameVal);
-            firstName.setText(person.getFirstName());
+            firstName.setText(user.getFullName());
 
             TextView lastName = findViewById(R.id.lastNameVal);
-            lastName.setText(person.getLastName());
+            lastName.setText(user.getFullName());
 
             TextView address = findViewById(R.id.addressVal);
-            address.setText(person.getAddress());
+            address.setText(user.getRole());
 
             TextView phoneNumber = findViewById(R.id.phoneNumberVal);
-            phoneNumber.setText(person.getPhoneNumber());
+            phoneNumber.setText(user.getCampus());
         }
     }
 
