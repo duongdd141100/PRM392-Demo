@@ -16,6 +16,11 @@ public class Word {
     @NonNull
     private String word;
 
+    public Word(@NonNull Integer id, @NonNull String word) {
+        this.id = id;
+        this.word = word;
+    }
+
     @NonNull
     public Integer getId() {
         return id;

@@ -31,11 +31,16 @@ import android.widget.Toast;
 
 import com.example.myapplication.adapter.WordAdapter;
 import com.example.myapplication.entity.Person;
+import com.example.myapplication.entity.Word;
+import com.example.myapplication.repository.WordRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class WordActivity extends AppCompatActivity {
+
+    private WordRepository wordRepository = null;
 
     List<String> words = new ArrayList<>();
 
@@ -43,7 +48,7 @@ public class WordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word);
-
+        wordRepository = new WordRepository(this);
         addWords();
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -143,9 +148,7 @@ public class WordActivity extends AppCompatActivity {
     }
 
     private void addWords() {
-        for (int i = 0; i < 50; i ++) {
-            words.add("Item " + (i + 1));
-        }
+        words.addAll(wordRepository.findAll().stream().map(Word::getWord).collect(Collectors.toList()));
     }
 
     private void requestLocationPermission() {
