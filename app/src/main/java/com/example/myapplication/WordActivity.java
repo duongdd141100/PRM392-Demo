@@ -30,9 +30,11 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.example.myapplication.adapter.WordAdapter;
+import com.example.myapplication.common.IntentKeys;
 import com.example.myapplication.entity.Person;
 import com.example.myapplication.entity.Word;
 import com.example.myapplication.repository.WordRepository;
+import com.example.myapplication.service.MyUnboundService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,6 +111,11 @@ public class WordActivity extends AppCompatActivity {
         }
         if (item.getItemId() == R.id.sendNoti) {
             sendNotification();
+        }
+        if (item.getItemId() == R.id.startService) {
+            Intent intent = new Intent(this, MyUnboundService.class);
+            intent.putExtra(IntentKeys.username, "my demo");
+            startService(intent);
         }
         return super.onOptionsItemSelected(item);
 //        switch (item.getItemId()) {
