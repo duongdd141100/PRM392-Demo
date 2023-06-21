@@ -32,7 +32,11 @@
         android:orderInCategory="70"
         android:title="Stop Service" />
     <item
-        android:id="@+id/logout"
+        android:id="@+id/showCount"
         android:orderInCategory="80"
+        android:title="Show Count" />
+    <item
+        android:id="@+id/logout"
+        android:orderInCategory="90"
         android:title="Logout" />
 </menu>

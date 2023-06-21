@@ -15,12 +15,15 @@ import android.app.DatePickerDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,6 +37,7 @@ import com.example.myapplication.common.IntentKeys;
 import com.example.myapplication.entity.Person;
 import com.example.myapplication.entity.Word;
 import com.example.myapplication.repository.WordRepository;
+import com.example.myapplication.service.MyBoundService;
 import com.example.myapplication.service.MyUnboundService;
 
 import java.util.ArrayList;
@@ -116,6 +120,10 @@ public class WordActivity extends AppCompatActivity {
             Intent intent = new Intent(this, MyUnboundService.class);
             intent.putExtra(IntentKeys.username, "my demo");
             startService(intent);
+        }
+        if (item.getItemId() == R.id.showCount) {
+            int count = myBoundService.getCount();
+            Toast.makeText(this, "Count is " + count, Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
 //        switch (item.getItemId()) {
@@ -213,4 +221,32 @@ public class WordActivity extends AppCompatActivity {
         }
         notificationManager.notify(2, builder.build());
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = new Intent(this, MyBoundService.class);
+        intent.putExtra("START", 2);
+        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unbindService(serviceConnection);
+    }
+
+    private MyBoundService myBoundService = null;
+
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            myBoundService = ((MyBoundService.MyBinder) service).getService();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
 }
